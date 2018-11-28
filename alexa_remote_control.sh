@@ -80,7 +80,7 @@ BROWSER='Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:99.0) Gecko/20100101 Firef
 ###########################################
 # nothing to configure below here
 #
-TMP="/tmp"
+TMP="${TMP:-/tmp}"
 COOKIE="${TMP}/.alexa.cookie"
 DEVLIST="${TMP}/.alexa.devicelist.json"
 
@@ -156,9 +156,13 @@ ${AWK} -F$fs '{
 }'
 }
 
-eval $(parse_yaml ${SECRETS_YAML} "secrets_")
-EMAIL=${secrets_alexa_email}
-PASSWORD=${secrets_alexa_password}
+if [ -f "${SECRETS_YAML}"] ; then
+	eval $(parse_yaml ${SECRETS_YAML} "secrets_")
+	EMAIL=${secrets_alexa_email}
+	PASSWORD=${secrets_alexa_password}
+else	
+	echo "Secrets YAML file: '${SECRETS_YAML}' not found. Skipping...'"
+fi
 
 while [ "$#" -gt 0 ] ; do
 	case "$1" in
