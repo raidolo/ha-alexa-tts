@@ -41,7 +41,7 @@ ALEXA_REMOTE="$DIR/alexa_remote_control.sh"
 
 usage()
 {      
-        echo "$0 -d <device>|ALL"
+        echo "$0 -d <device>|ALL|-lastalexa"
 }
 
 case "$1" in   
@@ -51,9 +51,13 @@ case "$1" in
                         usage
                         exit 1
                 fi
-                DEVICE=$2
+                DEVICE="$2"
                 shift
                 ;;
+        -lastalexa) 
+		DEVICE=`$ALEXA_REMOTE -lastalexa`
+		shift
+		;;
         *)     
                 echo "ERROR: unknown option ${1}"
                 usage
@@ -66,5 +70,5 @@ read message
 
 formatted=${message// /_}
 
-$ALEXA_REMOTE -d "$DEVICE" -e speak:$formatted >> /dev/null
-exit 0                
+$ALEXA_REMOTE -d "${DEVICE}" -e speak:$formatted >> /dev/null
+exit 0    

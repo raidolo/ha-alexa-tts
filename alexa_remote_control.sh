@@ -47,20 +47,25 @@
 
 # EMAIL and PASSWORD are set on the keys 'alexa_email' and 'alexa_password'
 # in your secrets.yaml file.
-SECRETS_YAML='/home/homeassistant/.homeassistant/secrets.yaml'
-#SECRETS_YAML='/config/secrets.yaml'
+CONFIG="/config"
+#CONFIG="/home/homeassistant/.homeassistant"
+
+SECRETS_YAML='${CONFIG}/secrets.yaml'
 
 #LANGUAGE="de-DE"
 #LANGUAGE="en-GB"
-LANGUAGE="en-US"
+#LANGUAGE="en-US"
+LANGUAGE="it-IT"
 
 #AMAZON='amazon.de'
 #AMAZON='amazon.co.uk'
-AMAZON='amazon.com'
+#AMAZON='amazon.com'
+AMAZON='amazon.it'
 
 #ALEXA='layla.amazon.de'
 #ALEXA='layla.amazon.co.uk'
-ALEXA='pitangui.amazon.com'
+#ALEXA='pitangui.amazon.com'
+ALEXA='alexa.amazon.it'
 
 # binaries
 CURL='/usr/bin/curl'
@@ -81,8 +86,8 @@ BROWSER='Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:99.0) Gecko/20100101 Firef
 # nothing to configure below here
 #
 TMP="${TMP:-/tmp}"
-COOKIE="${TMP}/.alexa.cookie"
-DEVLIST="${TMP}/.alexa.devicelist.json"
+COOKIE="${CONFIG}/.alexa.cookie"
+DEVLIST="${CONFIG}/.alexa.devicelist.json"
 
 GUIVERSION=0
 
@@ -526,7 +531,7 @@ if [ -n "${SEQUENCECMD}" ]
 				exit 1
 			fi
 			SEQUENCE=$(jq --arg utterance "${UTTERANCE}"  -rc '.[] | select( .triggers[].payload.utterance == $utterance) | .sequence' "${TMP}/.alexa.automation" | ${SED} 's/"/\\"/g' | ${SED} "s/ALEXA_CURRENT_DEVICE_TYPE/${DEVICETYPE}/g" | ${SED} "s/ALEXA_CURRENT_DSN/${DEVICESERIALNUMBER}/g" | ${SED} "s/ALEXA_CUSTOMER_ID/${MEDIAOWNERCUSTOMERID}/g" | ${SED} 's/ /_/g')
-			rm -f "${TMP}/.alexa.automation"
+			rm -f "${MP}/.alexa.automation"
 
 			echo "Running routine: ${UTTERANCE}"
 			COMMAND="{\"behaviorId\":\"${AUTOMATION}\",\"sequenceJson\":\"${SEQUENCE}\",\"status\":\"ENABLED\"}"
