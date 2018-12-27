@@ -50,7 +50,7 @@
 CONFIG="/config"
 #CONFIG="/home/homeassistant/.homeassistant"
 
-SECRETS_YAML='${CONFIG}/secrets.yaml'
+SECRETS_YAML="${CONFIG}/secrets.yaml"
 
 #LANGUAGE="de-DE"
 #LANGUAGE="en-GB"
@@ -161,7 +161,7 @@ ${AWK} -F$fs '{
 }'
 }
 
-if [ -f "${SECRETS_YAML}"] ; then
+if [ -f "${SECRETS_YAML}" ] ; then
 	eval $(parse_yaml ${SECRETS_YAML} "secrets_")
 	EMAIL=${secrets_alexa_email}
 	PASSWORD=${secrets_alexa_password}
