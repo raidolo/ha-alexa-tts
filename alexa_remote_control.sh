@@ -531,7 +531,7 @@ if [ -n "${SEQUENCECMD}" ]
 				exit 1
 			fi
 			SEQUENCE=$(jq --arg utterance "${UTTERANCE}"  -rc '.[] | select( .triggers[].payload.utterance == $utterance) | .sequence' "${TMP}/.alexa.automation" | ${SED} 's/"/\\"/g' | ${SED} "s/ALEXA_CURRENT_DEVICE_TYPE/${DEVICETYPE}/g" | ${SED} "s/ALEXA_CURRENT_DSN/${DEVICESERIALNUMBER}/g" | ${SED} "s/ALEXA_CUSTOMER_ID/${MEDIAOWNERCUSTOMERID}/g" | ${SED} 's/ /_/g')
-			rm -f "${MP}/.alexa.automation"
+			rm -f "${TMP}/.alexa.automation"
 
 			echo "Running routine: ${UTTERANCE}"
 			COMMAND="{\"behaviorId\":\"${AUTOMATION}\",\"sequenceJson\":\"${SEQUENCE}\",\"status\":\"ENABLED\"}"
