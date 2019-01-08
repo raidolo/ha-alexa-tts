@@ -54,3 +54,12 @@ You can also add a notify for all of your Alexa devices:
         command: "/home/homeassistant/.homeassistant/alexa_wrapper.sh -d 'ALL'"
 
 Let me know if you have any questions!
+
+**ADDED in this version**
+
+You can now add a notify for your latest alexa device you talked to:
+
+    notify:
+      - platform: command_line
+        name: 'Last Alexa'
+        command: "/home/homeassistant/.homeassistant/alexa_wrapper.sh -lastalexa" 
